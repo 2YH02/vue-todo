@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./scripts//todo.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <p>할일</p>
+      </div>
+    </header>
+    <main id="todos-app">
+      <section id="todo-management">
+        <form @submit="saveTodo">
+          <label for="text">할일 추가</label>
+          <input type="text" id="text" v-model="enteredTodoText" required />
+          <button>추가</button>
+        </form>
+      </section>
+      <section id="todos">
+        <p v-if="todos.length === 0 && !isLoading">할일을 추가해 주세요</p>
+        <p v-else-if="isLoading">로딩중...</p>
+        <ul v-else id="todos-list">
+          <li v-for="todo in todos">
+            <p>{{ todo.text }}</p>
+            <div>
+              <button @click="startEditTodo(todo.id)">수정</button>
+              <button @click="deleteTodo(todo.id)">삭제</button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
